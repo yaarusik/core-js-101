@@ -1,11 +1,11 @@
-function get3TopItems(n) {
-  const arr = new Array(n).fill([]);
-  arr.map((el, indexArr) => {
-    const a = new Array(n).fill(0);
-    a.map((item, index) => (indexArr === index ? 1 : 0));
-    return a;
-  });
-  return arr;
-}
+function fromJSON(proto, json) {}
 
-console.log(get3TopItems(2));
+const Circle = function Circle(radius) {
+  this.radius = radius;
+};
+
+Circle.prototype.getCircumference = function getCircumference() {
+  return 2 * Math.PI * this.radius;
+};
+
+fromJSON(Circle.prototype, '{ "radius":10 }');
