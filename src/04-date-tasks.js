@@ -1,3 +1,4 @@
+/* eslint-disable comma-dangle */
 /* *******************************************************************************************
  *                                                                                           *
  * Please read the following tutorial before implementing tasks:                              *
@@ -33,8 +34,8 @@ function parseDataFromRfc2822(value) {
  *    '2016-01-19T16:07:37+00:00'    => Date()
  *    '2016-01-19T08:07:37Z' => Date()
  */
-function parseDataFromIso8601(/* value */) {
-  throw new Error('Not implemented');
+function parseDataFromIso8601(value) {
+  return new Date(value);
 }
 
 /**
@@ -71,8 +72,24 @@ function isLeapYear(date) {
  *    Date(2000,1,1,10,0,0),  Date(2000,1,1,10,0,0,250)     => "00:00:00.250"
  *    Date(2000,1,1,10,0,0),  Date(2000,1,1,15,20,10,453)   => "05:20:10.453"
  */
-function timeSpanToString(/* startDate, endDate */) {
-  throw new Error('Not implemented');
+function timeSpanToString(startDate, endDate) {
+  const hours = Math.abs(startDate.getHours() - endDate.getHours())
+    .toString()
+    .padStart(2, 0);
+
+  const minutes = Math.abs(startDate.getMinutes() - endDate.getMinutes())
+    .toString()
+    .padStart(2, 0);
+  const seconds = Math.abs(startDate.getSeconds() - endDate.getSeconds())
+    .toString()
+    .padStart(2, 0);
+  const m = Math.abs(startDate.getMilliseconds() - endDate.getMilliseconds())
+    .toString()
+    .padStart(3, 0);
+
+  // if (m.length < 3)
+
+  return `${hours}:${minutes}:${seconds}.${m}`;
 }
 
 /**
@@ -91,8 +108,17 @@ function timeSpanToString(/* startDate, endDate */) {
  *    Date.UTC(2016,3,5,18, 0) => Math.PI
  *    Date.UTC(2016,3,5,21, 0) => Math.PI/2
  */
-function angleBetweenClockHands(/* date */) {
-  throw new Error('Not implemented');
+function angleBetweenClockHands(date) {
+  const h = date.getUTCHours() % 12;
+  const m = date.getUTCMinutes();
+  const mSpeed = 6;
+  const mPosition = m * mSpeed;
+  const hPosition = 30 * h + mPosition / 12;
+
+  let angle = Math.abs(hPosition - mPosition);
+  angle = Math.min(angle, 360 - angle);
+
+  return (angle * Math.PI) / 180;
 }
 
 module.exports = {
