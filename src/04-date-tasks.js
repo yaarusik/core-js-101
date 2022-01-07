@@ -1,4 +1,3 @@
-/* eslint-disable comma-dangle */
 /* *******************************************************************************************
  *                                                                                           *
  * Please read the following tutorial before implementing tasks:                              *
