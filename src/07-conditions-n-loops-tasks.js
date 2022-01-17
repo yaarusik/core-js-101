@@ -305,7 +305,10 @@ function isCreditCardNumber(num) {
     })
     .reduce(sum);
 
-  const result = 10 - (a % 10);
+  let result;
+  if (a % 10 === 0) result = a % 10;
+  else result = 10 - (a % 10);
+
   return result === cutNumber;
 }
 
@@ -479,8 +482,26 @@ function getMatrixProduct(m1, m2) {
  *    [    ,   ,    ]]
  *
  */
-function evaluateTicTacToePosition(/* position */) {
-  throw new Error('Not implemented');
+function evaluateTicTacToePosition(position) {
+  const mainDiag = [];
+  const secondDiag = [];
+  for (let i = 0; i < position[0].length; i += 1) {
+    const line = [];
+    for (let j = 0; j < position[0].length; j += 1) {
+      if (i === j) mainDiag.push(position[j][i]);
+      if (position[0].length - 1 - j === i) secondDiag.push(position[i][j]);
+      line.push(position[j][i]);
+    }
+    position.push(line);
+  }
+
+  position.push(mainDiag, secondDiag);
+  const result = position
+    .map((item) => item.join(''))
+    .filter((item) => item === 'XXX' || item === '000')
+    .join(' ');
+
+  return result.length === 0 ? undefined : result[0];
 }
 
 module.exports = {
