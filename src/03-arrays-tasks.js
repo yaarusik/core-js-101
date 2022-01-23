@@ -236,9 +236,12 @@ function toArrayOfSquares(arr) {
  *   [ 0, 0, 0, 0, 0]         => [ 0, 0, 0, 0, 0]
  *   [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ] => [ 1, 3, 6, 10, 15, 21, 28, 36, 45, 55 ]
  */
-function getMovingSum(/* arr */) {
-  throw new Error('Not implemented');
-  // console.log(arr.reduce((item, current) => item + current, 1));
+function getMovingSum(arr) {
+  let num = 0;
+  return arr.map((item) => {
+    num = item + num;
+    return num;
+  });
 }
 
 /**
@@ -536,20 +539,20 @@ function distinct(arr) {
  *    "Poland" => ["Lodz"]
  *   }
  */
-function group(/* array, keySelector, valueSelector */) {
-  throw new Error('Not implemented');
+function group(array, keySelector, valueSelector) {
+  const keyMap = new Map();
+  array.map((item) => {
+    if (!keyMap.has(keySelector(item))) {
+      keyMap.set(keySelector(item), [valueSelector(item)]);
+    } else {
+      const currentSelector = keyMap.get(keySelector(item));
+      currentSelector.push(valueSelector(item));
+      keyMap.set(keySelector(item), currentSelector);
+    }
+    return item;
+  });
 
-  // const keyMap = new Map();
-  // array.map((item) => {
-  //   if (!keyMap[keySelector(item)]) {
-  //     keyMap[keySelector(item)] = [valueSelector(item)];
-  //   } else {
-  //     keyMap[keySelector(item)].push(valueSelector(item));
-  //   }
-  //   console.log(keyMap);
-  //   return keyMap;
-  // });
-  // return keyMap;
+  return keyMap;
 }
 
 /**
@@ -581,8 +584,8 @@ function selectMany(arr, childrenSelector) {
  *   ['one','two','three'], [2]       => 'three'  (arr[2])
  *   [[[ 1, 2, 3]]], [ 0, 0, 1 ]      => 2        (arr[0][0][1])
  */
-function getElementByIndexes(/* arr, indexes */) {
-  throw new Error('Not implemented');
+function getElementByIndexes(arr, i) {
+  return i.reduce((start, acc) => start[acc], arr);
 }
 
 /**
